@@ -15,6 +15,7 @@ function DefaultLayout({ children }) {
 	const [menuToRender, setMenuToRender] = React.useState([]);
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
+	// UserMenu
 	const userMenu = [
 		{
 			title: "Home",
@@ -51,6 +52,26 @@ function DefaultLayout({ children }) {
 		},
 	];
 
+	//Company Menu
+	const companyMenu = [
+		{
+			title: "Posted Jobs",
+			onClick: () => navigate("/posted-jobs"),
+			icon: <i class='ri-file-list-2-line'></i>,
+			path: "/posted-jobs",
+		},
+		{
+			title: "Logout",
+			onClick: () => {
+				localStorage.removeItem("user");
+				navigate("/login");
+			},
+			icon: <i class='ri-logout-box-r-line'></i>,
+			path: "/login",
+		},
+	];
+
+	//Admin Menu
 	const adminMenu = [
 		{
 			title: "Home",
@@ -89,8 +110,10 @@ function DefaultLayout({ children }) {
 			const response = await getUserProfile(userId);
 
 			dispatch(HideLoading());
-			if (response.data?.isAdmin === true) {
+			if (response.data?.userType === "admin") {
 				setMenuToRender(adminMenu);
+			} else if (response.data?.userType === "company") {
+				setMenuToRender(companyMenu);
 			} else {
 				setMenuToRender(userMenu);
 			}

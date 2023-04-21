@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, message } from "antd";
+import { Form, message, Radio } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { HideLoading, ShowLoading } from "../redux/alertSlice";
@@ -11,6 +11,7 @@ function Register() {
 	const onFinish = async (values) => {
 		try {
 			dispatch(ShowLoading());
+			console.log(values);
 			const response = await RegisterUser(values);
 			dispatch(HideLoading());
 			if (response.success) {
@@ -30,6 +31,12 @@ function Register() {
 				<h4>Placement Portal</h4>
 				<div className='divider'></div>
 				<Form layout='vertical' onFinish={onFinish}>
+					<Form.Item name='userType' label='User Type'>
+						<Radio.Group>
+							<Radio.Button value='student'>Student</Radio.Button>
+							<Radio.Button value='company'>Company</Radio.Button>
+						</Radio.Group>
+					</Form.Item>
 					<Form.Item name='name' label='Name'>
 						<input type='text' />
 					</Form.Item>

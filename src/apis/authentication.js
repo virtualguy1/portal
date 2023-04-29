@@ -23,7 +23,7 @@ export const LoginUser = async (payload) => {
 			const user = snapshotsData[0];
 			const decryptedPassword = CryptoJS.AES.decrypt(
 				user.password,
-				"sheyjobs-lite"
+				"secretcode"
 			).toString(CryptoJS.enc.Utf8);
 			if (decryptedPassword === payload.password) {
 				return {
@@ -62,7 +62,7 @@ export const RegisterUser = async (payload) => {
 		// encrypt password
 		const encryptedPassword = CryptoJS.AES.encrypt(
 			payload.password,
-			"sheyjobs-lite"
+			"secretcode"
 		).toString();
 		payload.password = encryptedPassword;
 

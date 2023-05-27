@@ -37,7 +37,7 @@ function PersonalInfo() {
           name="phoneNumber"
           rules={[{ required: true, message: "required" }]}
         >
-          <input type="text" />
+          <input type="text" pattern="^\d{10}$" />
         </Form.Item>
       </Col>
       <Col span={8}>
